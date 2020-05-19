@@ -11,5 +11,5 @@
 
 **GitHub Pages**
 
-* [Ссылка на GitHub Pages]()
+* [Ссылка на GitHub Pages](https://smaginalexander.github.io/mesto/.)
 
