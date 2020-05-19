@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Место</title>
+    <link rel="stylesheet" href="pages/index.css">
+
+</head>
+
+<body>
+
+    <div class="page">
+        <header class="header">
+            <img class="header__logo" src="./images/logo (2).svg" alt="логотип">
+        </header>
+        <section class="profile">
+            <img class="profile__avatar" src="./images/Avatar.png" alt="аватар">
+            <div class="profile-info">
+                <h1 class="profile-info__title">Жак-Ив Кусто<img class="profile-info__edit-button"
+                        src="./images/Edit Button.svg" alt="карандаш"></h1>
+                <P class="profile-info__text">Исследователь океана</P>
+            </div>
+            <button class="profile__add-button">+</button>
+        </section>
+        <div class="popup popup_opened">
+            <form class="popup__container">
+                <p class="popup__text">Редактировать профиль</p>
+                <input id="name" class="popup__input" type="text" name="user-name">
+                <input id="job" class="popup__input" type="text" name="user-job">
+                <input class="popup__btn" type="submit" name="save" value="Сохранить">
+            </form>
+            <img class="popup__close" src="./images/Close Icon.png">
+        </div>
+        <section class="elements">
+            <div class="element">
+                <img class="element__image" src="./images/11.png" alt="первый">
+                <h2 class="element__text" src="">1<img class="element__btn" src="./images/Group.svg"></h2>
+            </div>
+            <div class="element">
+                <img class="element__image" src="./images/2.png" alt="второй">
+                <h2 class="element__text" src="">2<img class="element__btn" src="./images/Group.svg"></h2>
+            </div>
+            <div class="element">
+                <img class="element__image" src="./images/3.png" alt="третий">
+                <h2 class="element__text" src="">3<img class="element__btn" src="./images/Group.svg"></h2>
+            </div>
+            <div class="element">
+                <img class="element__image" src="./images/11.png" alt="четвертый">
+                <h2 class="element__text" src="">4<img class="element__btn" src="./images/Group.svg"></h2>
+            </div>
+            <div class="element">
+                <img class="element__image" src="./images/2.png" alt="пятый">
+                <h2 class="element__text" src="">5<img class="element__btn" src="./images/Group.svg"></h2>
+            </div>
+            <div class="element">
+                <img class="element__image" src="./images/3.png" alt="шестой">
+                <h2 class="element__text" src="">6<img class="element__btn" src="./images/Group.svg"></h2>
+            </div>
+        </section>
+        <footer class="footer">
+            <p class="footer__text">&copy; Mesto Russia</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

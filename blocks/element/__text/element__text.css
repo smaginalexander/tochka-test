@@ -1,0 +1,10 @@
+.element__text {
+    display: flex;
+    background-color: white;
+    width: 272px;
+    margin-top: -4px;
+    line-height: 3.5;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-left: 10px;
+}

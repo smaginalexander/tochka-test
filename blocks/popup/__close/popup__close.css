@@ -1,0 +1,16 @@
+.popup__close {
+    object-fit: contain;
+    height: 50px;
+    margin-top: -40px;
+    margin-left: -10px;
+}
+
+.popup__close:hover {
+    cursor: pointer;
+}
+@media screen and (max-width: 500px) {
+    .popup__close {
+        height: 30px;
+        margin-top: -25px;
+    }
+}
