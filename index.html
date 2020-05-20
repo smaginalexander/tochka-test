@@ -16,60 +16,76 @@
             <img class="header__logo" src="./images/logo.svg" alt="логотип">
         </header>
         <section class="profile">
-            <img class="profile__avatar" src="./images/Avatar.png" alt="аватар">
+            <img class="profile__avatar" src="./images/avatar.png" alt="аватар">
             <div class="profile-info">
-                <h1 class="profile-info__title">Жак-Ив Кусто<img class="profile-info__edit-button"
-                        src="./images/EditButton.svg" alt="карандаш"></h1>
-                <P class="profile-info__text">Исследователь океана</P>
+                <div class="profile__conteiner">
+                    <h1 class="profile-info__title">Жак-Ив Кусто</h1>
+                    <button class="profile-info__edit-button" type="image"></button>
+                </div>
+
+                <p class="profile-info__text">Исследователь океана</p>
             </div>
-            <button class="profile__add-button">+</button>
+
+            <button class="profile__add-button" type="text">+</button>
         </section>
-        <div class="popup popup_opened">
-            <form class="popup__container">
-                <p class="popup__text">Редактировать профиль</p>
-                <input id="name" class="popup__input" type="text" name="user-name">
-                <input id="job" class="popup__input" type="text" name="user-job">
-                <input class="popup__btn" type="submit" name="save" value="Сохранить">
+        <div class="popup">
+            <form name="edit-profile" action="#" class="popup__container">
+                <h2 class="popup__text">Редактировать профиль</h2>
+                <input id="name" class="popup__input" type="text" required placeholder="Введите имя" name="user-name">
+                <input id="job" class="popup__input" type="text" required placeholder="укажите работу" name="user-job">
+                <button class="popup__btn" type="submit">Сохранить</button>
             </form>
-            <img class="popup__close" src="./images/Close.png" alt="крестик">
+            <button type="close" class="popup__close"></button>
         </div>
         <section class="elements">
             <div class="element">
                 <img class="element__image" src="./images/11.png" alt="первый">
-                <h2 class="element__text">1<img class="element__btn" src="./images/Group.svg" alt="картинка">
-                </h2>
+                <div class="element_container">
+                    <h2 class="element__text">1</h2>
+                    <button class="element__btn" type="button"></button>
+                </div>
             </div>
             <div class="element">
                 <img class="element__image" src="./images/2.png" alt="второй">
-                <h2 class="element__text">2<img class="element__btn" src="./images/Group.svg" alt="картинка">
-                </h2>
+                <div class="element_container">
+                    <h2 class="element__text">2</h2>
+                    <button class="element__btn" type="button"></button>
+                </div>
             </div>
             <div class="element">
                 <img class="element__image" src="./images/3.png" alt="третий">
-                <h2 class="element__text">3<img class="element__btn" src="./images/Group.svg" alt="картинка">
-                </h2>
+                <div class="element_container">
+                    <h2 class="element__text">3</h2>
+                    <button class="element__btn" type="button"></button>
+                </div>
             </div>
             <div class="element">
                 <img class="element__image" src="./images/11.png" alt="четвертый">
-                <h2 class="element__text">4<img class="element__btn" src="./images/Group.svg" alt="картинка">
-                </h2>
+                <div class="element_container">
+                    <h2 class="element__text">4</h2>
+                    <button class="element__btn" type="button"></button>
+                </div>
             </div>
             <div class="element">
                 <img class="element__image" src="./images/2.png" alt="пятый">
-                <h2 class="element__text">5<img class="element__btn" src="./images/Group.svg" alt="картинка">
-                </h2>
+                <div class="element_container">
+                    <h2 class="element__text">5</h2>
+                    <button class="element__btn" type="button"></button>
+                </div>
             </div>
             <div class="element">
                 <img class="element__image" src="./images/3.png" alt="шестой">
-                <h2 class="element__text">6<img class="element__btn" src="./images/Group.svg" alt="картинка">
-                </h2>
+                <div class="element_container">
+                    <h2 class="element__text">6</h2>
+                    <button class="element__btn" type="button"></button>
+                </div>
             </div>
         </section>
         <footer class="footer">
             <p class="footer__text">&copy; Mesto Russia</p>
         </footer>
     </div>
-    <script src="script.js"></script>
+    <script src="./JavaScript/script.js"></script>
 </body>
 
 </html>
