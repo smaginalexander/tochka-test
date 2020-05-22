@@ -1,8 +1,10 @@
 .profile__add-button {
     background-color: black;
     color: white;
-    font-size: 30px;
-    background-size: cover;
+    font-size: 50px;
+    line-height: inherit;
+    padding-bottom: 7px;
+    font-weight: 100;
     border: 2px solid #ffffff;
     border-radius: 2px;
     width: 150px;
@@ -20,5 +22,6 @@
         width: 282px;
         margin: auto;
         margin-top: 36px;
+        font-size: 35px;
     }
 }

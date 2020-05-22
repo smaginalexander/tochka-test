@@ -17,5 +17,6 @@
     .profile-info__title {
         margin: auto;
         font-size: 27px;
+        max-width: 245px;
     }
 }

@@ -1,4 +1,4 @@
-.element__btn {
+.element-container__btn {
     border: none;
     background-image: url(../../../images/Group.svg);
     background-color: rgba(255, 255, 255, 0);
@@ -8,7 +8,7 @@
     width: 24px;
     height: 22px;
 }
-.element__btn:hover {
+.element-container__btn:hover {
     opacity: 0.6;
     cursor: pointer;
 }

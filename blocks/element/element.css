@@ -1,7 +1,4 @@
-@import url(./__text/element__text.css);
 @import url(./__image/element__image.css);
-@import url(./__btn/element__btn.css);
-@import url(./__container/element_container.css);
 
 .element {
     margin: auto;

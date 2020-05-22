@@ -4,4 +4,10 @@
     max-width: 882px;
     margin: auto;
     border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+    padding-bottom: 40px;
+}
+@media screen and (max-width: 650px) {
+    .header {
+        padding-bottom: 31px;
+    }
 }

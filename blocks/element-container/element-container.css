@@ -1,9 +1,13 @@
-.element_container {
+@import url(./__btn/element-container__btn.css);
+@import url(./__text/element-container__text.css);
+
+.element-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     background-color: white;
-    height: 90px;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
