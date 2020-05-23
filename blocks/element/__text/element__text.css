@@ -1,4 +1,4 @@
-.element-container__text {
+.element__text {
     text-overflow: ellipsis;
     max-width: 170px;
     overflow: hidden;

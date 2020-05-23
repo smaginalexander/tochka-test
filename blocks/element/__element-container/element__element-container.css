@@ -1,7 +1,4 @@
-@import url(./__btn/element-container__btn.css);
-@import url(./__text/element-container__text.css);
-
-.element-container {
+.element__element-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
