@@ -1,40 +1,133 @@
-//создал перепенную для кнопкии откытия формы//
 const editButton = document.querySelector('.profile-info__edit-button');
-//переменная для модификатора( добавим в функцию, когда будем задавать свойство display)
 const popup = document.querySelector('.popup');
-// определим переменную для кнопки закрытия
 const closePopup = document.querySelector('.popup__close')
-const nameInfo = document.querySelector('.profile-info__title');//переменная для имени
-const jobInfo = document.querySelector('.profile-info__text');//переменная для работы
-const inputName = document.querySelector('#name');//поля формы 
+const nameInfo = document.querySelector('.profile-info__title');
+const jobInfo = document.querySelector('.profile-info__text');
+const inputName = document.querySelector('#name');
 const inputJob = document.querySelector('#job');
 // Находим форму в DOM
 const formElement = document.querySelector('.popup__container');
-// в этой функции popup включает в класс модификатор popup_opened(display:flex)
+//Открытие фотографий_______________
+const photo = document.querySelector('.photo-popup__img');
+const photoText = document.querySelector('.photo-popup__text');
+const photoPopup = document.querySelector('.photo-popup');
+const closePhoto = document.querySelector('.photo-popup__close');
+//загрузка карточек на страницу
+const initialCards = [
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
+const cardTemplate = document.querySelector('#card').content;
+const elementBlock = document.querySelector('.elements');
+//сделаем новую переменную для кнопки закрытия второго попапа
+const closeCards = document.querySelector('#close');
+// добавление второго попапа
+const newForm = document.querySelector('#new-card');
+const addButton = document.querySelector('.profile__add-button');
+//поля формы
+const inputNameCard = document.querySelector('#name-card');
+const inputlinkCard = document.querySelector('#link-card');
+//переменные для содержимого инпутов
+const cardImage = document.querySelector('.element__image');
+const cardName = document.querySelector('.element__text');
+const formCard = document.querySelector('#form');
+
 function openForm() {
     popup.classList.add('popup_opened');
-    // Получаем значение полей из свойства value
     inputName.value = nameInfo.textContent;
     inputJob.value = jobInfo.textContent;
 }
-//ЗАКРЫТИЕ ФОРМЫ_____________________________________________________________
-//в этой функции при нажатии на closePopup openPopup лишится атрибута
+//закрытие формы
 function closeForm() {
     popup.classList.remove('popup_opened')
 }
-//СОХРАНЕНИЕ ФОРМЫ__________________________________________________________________
+//сохранение формы
 function formSubmitHandler(evt) {
     evt.preventDefault();
     nameInfo.textContent = inputName.value;
     jobInfo.textContent = inputJob.value;
     closeForm();
 }
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
+//загружаем карточки на страницу
+function renderTemplateItem(item) {
+    const cardClone = cardTemplate.cloneNode(true);
+    cardClone.querySelector('.element__image').src = item.link;
+    cardClone.querySelector('.element__text').textContent = item.name;
+    //находим кнопку лайк
+    cardClone.querySelector('.element__btn').addEventListener('click', function (event) {
+        event.target.closest('.element__btn').classList.toggle('element__btn_active');
+    });
+    cardClone.querySelector('.element__trash').addEventListener('click', function (itm) {
+        itm.target.closest('.element').remove();
+    });// нашли кнопку треш прикрепили событие удаления карточки
+    //найдем фото, нажав на которую, открывается попап
+    cardClone.querySelector('.element__image').addEventListener('click', function () {
+        photoPopup.classList.add('popup_opened');
+        photo.src = item.link;
+        photoText.textContent = item.name;
+    });
+    elementBlock.prepend(cardClone);
+}
+closePhoto.addEventListener('click', openPhoto);
+//открытие фотки
+function openPhoto() {
+    photoPopup.classList.toggle('popup_opened');
+}
+
+function render() {
+    initialCards.forEach(renderTemplateItem);
+}
+
+render();
+
+function openFormCard() {
+    newForm.classList.add('popup_opened');
+    // Получаем значение полей из свойства value
+    inputName.value = nameInfo.textContent;
+    inputJob.value = jobInfo.textContent;
+}
+
+function closeFormCard() {
+    newForm.classList.remove('popup_opened')
+}
+
+function formSubmitCard(evt) {
+    evt.preventDefault();
+    const cardName = inputNameCard.value;
+    const cardImage = inputlinkCard.value;
+    const card = { name: cardName, link: cardImage };
+    initialCards.unshift(card);
+    renderTemplateItem(card);
+    closeFormCard();
+}
+
+formCard.addEventListener('submit', formSubmitCard);
+closePhoto.addEventListener('click', openPhoto);
 formElement.addEventListener('submit', formSubmitHandler);
-//в этом событии после клика на элемент editButton начнет действовать ф-я openForm и попап откроется
 editButton.addEventListener('click', openForm);
-//при клике на элемент активируется функция которая удалает атрибут у openPopup
 closePopup.addEventListener('click', closeForm);
-
-
+//в этом событии после клика на элемент editButton начнет действовать ф-я openForm и попап откроется
+addButton.addEventListener('click', openFormCard);
+closeCards.addEventListener('click', closeFormCard);
