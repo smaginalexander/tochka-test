@@ -5,14 +5,14 @@ const nameInfo = document.querySelector('.profile-info__title');
 const jobInfo = document.querySelector('.profile-info__text');
 const inputName = document.querySelector('#name');
 const inputJob = document.querySelector('#job');
-// Находим форму в DOM
+// Находим форму в DOM 
 const formElement = document.querySelector('.popup__container');
-//Открытие фотографий_______________
+//Открытие фотографий_______________ 
 const photo = document.querySelector('.photo-popup__img');
 const photoText = document.querySelector('.photo-popup__text');
 const photoPopup = document.querySelector('.photo-popup');
 const closePhoto = document.querySelector('.photo-popup__close');
-//загрузка карточек на страницу
+//загрузка карточек на страницу 
 const initialCards = [
     {
         name: 'Архыз',
@@ -41,15 +41,16 @@ const initialCards = [
 ];
 const cardTemplate = document.querySelector('#card').content;
 const elementBlock = document.querySelector('.elements');
-//сделаем новую переменную для кнопки закрытия второго попапа
+//сделаем новую переменную для кнопки закрытия второго попапа 
 const closeCards = document.querySelector('#close');
-// добавление второго попапа
+// добавление второго попапа 
 const newForm = document.querySelector('#new-card');
 const addButton = document.querySelector('.profile__add-button');
-//поля формы
+//поля формы 
 const inputNameCard = document.querySelector('#name-card');
-const inputlinkCard = document.querySelector('#link-card');
-//переменные для содержимого инпутов
+const inputLinkCard = document.querySelector('#link-card');
+//переменные для содержимого инпутов 
+
 const cardImage = document.querySelector('.element__image');
 const cardName = document.querySelector('.element__text');
 const formCard = document.querySelector('#form');
@@ -59,39 +60,44 @@ function openForm() {
     inputName.value = nameInfo.textContent;
     inputJob.value = jobInfo.textContent;
 }
-//закрытие формы
+//закрытие формы 
+
 function closeForm() {
     popup.classList.remove('popup_opened')
 }
-//сохранение формы
+//сохранение формы 
 function formSubmitHandler(evt) {
     evt.preventDefault();
     nameInfo.textContent = inputName.value;
     jobInfo.textContent = inputJob.value;
     closeForm();
 }
-//загружаем карточки на страницу
+//загружаем карточки на страницу 
 function renderTemplateItem(item) {
     const cardClone = cardTemplate.cloneNode(true);
     cardClone.querySelector('.element__image').src = item.link;
     cardClone.querySelector('.element__text').textContent = item.name;
-    //находим кнопку лайк
-    cardClone.querySelector('.element__btn').addEventListener('click', function (event) {
+    Like = cardClone.querySelector('.element__btn');//находим кнопку лайк 
+    trash = cardClone.querySelector('.element__trash');//кнопка удаления карточки
+    photoImg = cardClone.querySelector('.element__image');//найдем фото
+    photo.src = item.link;
+    photoText.textContent = item.name;
+
+    Like.addEventListener('click', function (event) {
         event.target.closest('.element__btn').classList.toggle('element__btn_active');
     });
-    cardClone.querySelector('.element__trash').addEventListener('click', function (itm) {
+    trash.addEventListener('click', function (itm) {
         itm.target.closest('.element').remove();
-    });// нашли кнопку треш прикрепили событие удаления карточки
-    //найдем фото, нажав на которую, открывается попап
-    cardClone.querySelector('.element__image').addEventListener('click', function () {
+    });
+    photoImg.addEventListener('click', function () {
         photoPopup.classList.add('popup_opened');
-        photo.src = item.link;
-        photoText.textContent = item.name;
+
     });
     elementBlock.prepend(cardClone);
 }
+
 closePhoto.addEventListener('click', openPhoto);
-//открытие фотки
+//открытие фотки 
 function openPhoto() {
     photoPopup.classList.toggle('popup_opened');
 }
@@ -104,7 +110,7 @@ render();
 
 function openFormCard() {
     newForm.classList.add('popup_opened');
-    // Получаем значение полей из свойства value
+    // Получаем значение полей из свойства value 
     inputName.value = nameInfo.textContent;
     inputJob.value = jobInfo.textContent;
 }
@@ -116,18 +122,21 @@ function closeFormCard() {
 function formSubmitCard(evt) {
     evt.preventDefault();
     const cardName = inputNameCard.value;
-    const cardImage = inputlinkCard.value;
+    const cardImage = inputLinkCard.value;
     const card = { name: cardName, link: cardImage };
+
     initialCards.unshift(card);
     renderTemplateItem(card);
     closeFormCard();
 }
+
 
 formCard.addEventListener('submit', formSubmitCard);
 closePhoto.addEventListener('click', openPhoto);
 formElement.addEventListener('submit', formSubmitHandler);
 editButton.addEventListener('click', openForm);
 closePopup.addEventListener('click', closeForm);
-//в этом событии после клика на элемент editButton начнет действовать ф-я openForm и попап откроется
+//в этом событии после клика на элемент editButton начнет действовать ф-я openForm и попап откроется 
 addButton.addEventListener('click', openFormCard);
 closeCards.addEventListener('click', closeFormCard);
+
