@@ -61,13 +61,7 @@ function popupToggle(popupWindow) {
     console.log(popupWindow)
     popupWindow.classList.toggle('popup_opened');
 }
-//сохранение формы 
-function formSubmitHandler(evt) {
-    evt.preventDefault();
-    nameInfo.textContent = inputName.value;
-    jobInfo.textContent = inputJob.value;
-    closeForm();
-}
+
 //загружаем карточки на страницу 
 function renderTemplateItem(item) {
     const cardClone = cardTemplate.cloneNode(true);
@@ -104,9 +98,15 @@ function formSubmitCard(evt) {
     const cardImage = inputLinkCard.value;
     const card = { name: cardName, link: cardImage };
     renderTemplateItem(card);
-    closeFormCard();
+    popupToggle(newForm);
 }
-
+//сохранение формы 
+function formSubmitHandler(evt) {
+    evt.preventDefault();
+    nameInfo.textContent = inputName.value;
+    jobInfo.textContent = inputJob.value;
+    popupToggle(popup);
+}
 formCard.addEventListener('submit', formSubmitCard);
 formElement.addEventListener('submit', formSubmitHandler);
 editButton.addEventListener('click', () => { popupToggle(popup); });//кнопка открытия формы профиля
@@ -114,5 +114,3 @@ closePopup.addEventListener('click', () => { popupToggle(popup); });
 addButton.addEventListener('click', () => { popupToggle(newForm); });//кнопка открытия формы добавления фотки
 closeCards.addEventListener('click', () => { popupToggle(newForm); });
 closePhoto.addEventListener('click', () => { popupToggle(photoPopup); });//зыкрыть фотку
-
-
