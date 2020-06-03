@@ -1,5 +1,7 @@
 const editButton = document.querySelector('.profile-info__edit-button');
 const popup = document.querySelector('.popup');
+const photoPopup = document.querySelector('.photo-popup');
+const newForm = document.querySelector('#new-card');
 const closePopup = document.querySelector('.popup__close')
 const nameInfo = document.querySelector('.profile-info__title');
 const jobInfo = document.querySelector('.profile-info__text');
@@ -10,7 +12,6 @@ const formElement = document.querySelector('.popup__container');
 //Открытие фотографий_______________ 
 const photo = document.querySelector('.photo-popup__img');
 const photoText = document.querySelector('.photo-popup__text');
-const photoPopup = document.querySelector('.photo-popup');
 const closePhoto = document.querySelector('.photo-popup__close');
 //загрузка карточек на страницу 
 const initialCards = [
@@ -44,26 +45,21 @@ const elementBlock = document.querySelector('.elements');
 //сделаем новую переменную для кнопки закрытия второго попапа 
 const closeCards = document.querySelector('#close');
 // добавление второго попапа 
-const newForm = document.querySelector('#new-card');
 const addButton = document.querySelector('.profile__add-button');
 //поля формы 
 const inputNameCard = document.querySelector('#name-card');
 const inputLinkCard = document.querySelector('#link-card');
 //переменные для содержимого инпутов 
-
 const cardImage = document.querySelector('.element__image');
 const cardName = document.querySelector('.element__text');
 const formCard = document.querySelector('#form');
+inputName.value = nameInfo.textContent;
+inputJob.value = jobInfo.textContent;
 
-function openForm() {
-    popup.classList.add('popup_opened');
-    inputName.value = nameInfo.textContent;
-    inputJob.value = jobInfo.textContent;
-}
-//закрытие формы 
-
-function closeForm() {
-    popup.classList.remove('popup_opened')
+//появление и скрытие модального окна
+function popupToggle(popupWindow) {
+    console.log(popupWindow)
+    popupWindow.classList.toggle('popup_opened');
 }
 //сохранение формы 
 function formSubmitHandler(evt) {
@@ -96,47 +92,27 @@ function renderTemplateItem(item) {
     elementBlock.prepend(cardClone);
 }
 
-closePhoto.addEventListener('click', openPhoto);
-//открытие фотки 
-function openPhoto() {
-    photoPopup.classList.toggle('popup_opened');
-}
-
 function render() {
     initialCards.forEach(renderTemplateItem);
 }
 
 render();
 
-function openFormCard() {
-    newForm.classList.add('popup_opened');
-    // Получаем значение полей из свойства value 
-    inputName.value = nameInfo.textContent;
-    inputJob.value = jobInfo.textContent;
-}
-
-function closeFormCard() {
-    newForm.classList.remove('popup_opened')
-}
-
 function formSubmitCard(evt) {
     evt.preventDefault();
     const cardName = inputNameCard.value;
     const cardImage = inputLinkCard.value;
     const card = { name: cardName, link: cardImage };
-
-    initialCards.unshift(card);
     renderTemplateItem(card);
     closeFormCard();
 }
 
-
 formCard.addEventListener('submit', formSubmitCard);
-closePhoto.addEventListener('click', openPhoto);
 formElement.addEventListener('submit', formSubmitHandler);
-editButton.addEventListener('click', openForm);
-closePopup.addEventListener('click', closeForm);
-//в этом событии после клика на элемент editButton начнет действовать ф-я openForm и попап откроется 
-addButton.addEventListener('click', openFormCard);
-closeCards.addEventListener('click', closeFormCard);
+editButton.addEventListener('click', () => { popupToggle(popup); });//кнопка открытия формы профиля
+closePopup.addEventListener('click', () => { popupToggle(popup); });
+addButton.addEventListener('click', () => { popupToggle(newForm); });//кнопка открытия формы добавления фотки
+closeCards.addEventListener('click', () => { popupToggle(newForm); });
+closePhoto.addEventListener('click', () => { popupToggle(photoPopup); });//зыкрыть фотку
+
 
