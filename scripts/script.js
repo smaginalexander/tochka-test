@@ -50,14 +50,12 @@ const addButton = document.querySelector('.profile__add-button');
 const inputNameCard = document.querySelector('#name-card');
 const inputLinkCard = document.querySelector('#link-card');
 //переменные для содержимого инпутов 
-const cardName = document.querySelector('.element__text');
 const formCard = document.querySelector('#form');
 inputName.value = nameInfo.textContent;
 inputJob.value = jobInfo.textContent;
 
 //появление и скрытие модального окна
 function popupToggle(popupWindow) {
-    console.log(popupWindow)
     popupWindow.classList.toggle('popup_opened');
 }
 //загружаем карточки на страницу 
@@ -65,9 +63,9 @@ function renderTemplateItem(item) {
     const cardClone = cardTemplate.cloneNode(true);
     cardClone.querySelector('.element__image').src = item.link;
     cardClone.querySelector('.element__text').textContent = item.name;
-    Like = cardClone.querySelector('.element__btn');//находим кнопку лайк 
-    trash = cardClone.querySelector('.element__trash');//кнопка удаления карточки
-    photoImg = cardClone.querySelector('.element__image');//найдем фото
+    const Like = cardClone.querySelector('.element__btn');//находим кнопку лайк 
+    const trash = cardClone.querySelector('.element__trash');//кнопка удаления карточки
+    const photoImg = cardClone.querySelector('.element__image');//найдем фото
     photo.src = item.link;
     photoText.textContent = item.name;
 
@@ -77,10 +75,7 @@ function renderTemplateItem(item) {
     trash.addEventListener('click', function (itm) {
         itm.target.closest('.element').remove();
     });
-    photoImg.addEventListener('click', function () {
-        photoPopup.classList.add('popup_opened');
-
-    });
+    photoImg.addEventListener('click', () => { popupToggle(photoPopup); });
     elementBlock.prepend(cardClone);
 }
 
