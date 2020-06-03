@@ -12,7 +12,7 @@ const formElement = document.querySelector('.popup__container');
 //Открытие фотографий_______________ 
 const photo = document.querySelector('.photo-popup__img');
 const photoText = document.querySelector('.photo-popup__text');
-const closePhoto = document.querySelector('.photo-popup__close');
+const closePhoto = document.querySelector('#close-photo');
 //загрузка карточек на страницу 
 const initialCards = [
     {
@@ -50,7 +50,6 @@ const addButton = document.querySelector('.profile__add-button');
 const inputNameCard = document.querySelector('#name-card');
 const inputLinkCard = document.querySelector('#link-card');
 //переменные для содержимого инпутов 
-const cardImage = document.querySelector('.element__image');
 const cardName = document.querySelector('.element__text');
 const formCard = document.querySelector('#form');
 inputName.value = nameInfo.textContent;
@@ -61,7 +60,6 @@ function popupToggle(popupWindow) {
     console.log(popupWindow)
     popupWindow.classList.toggle('popup_opened');
 }
-
 //загружаем карточки на страницу 
 function renderTemplateItem(item) {
     const cardClone = cardTemplate.cloneNode(true);
