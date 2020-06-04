@@ -62,14 +62,16 @@ function popupToggle(popupWindow) {
 function renderTemplateItem(item) {
     const cardClone = cardTemplate.cloneNode(true);
     cardClone.querySelector('.element__image').src = item.link;
+    cardClone.querySelector('.element__image').alt = item.name;
     cardClone.querySelector('.element__text').textContent = item.name;
-    const Like = cardClone.querySelector('.element__btn');//находим кнопку лайк 
+    const like = cardClone.querySelector('.element__btn');//находим кнопку лайк 
     const trash = cardClone.querySelector('.element__trash');//кнопка удаления карточки
     const photoImg = cardClone.querySelector('.element__image');//найдем фото
     photo.src = item.link;
     photoText.textContent = item.name;
-
-    Like.addEventListener('click', function (event) {
+    photo.alt = item.name;
+    console.log(photo)
+    like.addEventListener('click', function (event) {
         event.target.closest('.element__btn').classList.toggle('element__btn_active');
     });
     trash.addEventListener('click', function (itm) {
