@@ -70,7 +70,6 @@ function renderTemplateItem(item) {
     photo.src = item.link;
     photoText.textContent = item.name;
     photo.alt = item.name;
-    console.log(photo)
     like.addEventListener('click', function (event) {
         event.target.closest('.element__btn').classList.toggle('element__btn_active');
     });
