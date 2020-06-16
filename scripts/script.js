@@ -53,7 +53,6 @@ const inputLinkCard = document.querySelector('#link-card');
 const formCard = document.querySelector('#form');
 inputName.value = nameInfo.textContent;
 inputJob.value = jobInfo.textContent;
-
 //появление и скрытие модального окна
 function popupToggle(popupWindow) {
     popupWindow.classList.toggle('popup_opened');
@@ -79,7 +78,10 @@ function renderTemplateItem(item) {
     photoImg.addEventListener('click', () => { popupToggle(photoPopup); });
     elementBlock.prepend(cardClone);
 }
-
+//закрытие формы
+function closeForm(item) {
+    item.classList.remove('popup_opened')
+}
 function render() {
     initialCards.forEach(renderTemplateItem);
 }
@@ -101,6 +103,17 @@ function formSubmitHandler(evt) {
     jobInfo.textContent = inputJob.value;
     popupToggle(popup);
 }
+//закрытие профиля на клик по оверлею
+function clickOver(item) {
+    if (item.target.classList.contains('popup')) {
+        console.log('тут нет класса формы');
+        closeForm(popup);
+        closeForm(newForm);
+        closeForm(photoPopup);
+    } else {
+        console.log('тут есть класс формы')
+    }
+}
 formCard.addEventListener('submit', formSubmitCard);
 formElement.addEventListener('submit', formSubmitHandler);
 editButton.addEventListener('click', () => { popupToggle(popup); });//кнопка открытия формы профиля
@@ -108,3 +121,17 @@ closePopup.addEventListener('click', () => { popupToggle(popup); });
 addButton.addEventListener('click', () => { popupToggle(newForm); });//кнопка открытия формы добавления фотки
 closeCards.addEventListener('click', () => { popupToggle(newForm); });
 closePhoto.addEventListener('click', () => { popupToggle(photoPopup); });//зыкрыть фотку
+//закрытие попапа при нажатии Esc
+document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 27) {
+        closeForm(popup);
+        closeForm(newForm);
+        closeForm(photoPopup);
+    };
+});
+//закрытие профиля
+popup.addEventListener('click', clickOver);
+//закрытие нового места
+newForm.addEventListener('click', clickOver);
+//закрытие попапа с фоткой
+photoPopup.addEventListener('click', clickOver);

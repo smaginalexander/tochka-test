@@ -1,3 +1,4 @@
+@import url(./_error/popup__input_error.css);
 .popup__input {
     width: 358px;
     font-family: "Inter", ‘Arial’, sans-serif;
