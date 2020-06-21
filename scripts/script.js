@@ -115,9 +115,9 @@ enableValidation(validationConfig);
 function openForm(popupWindow) {
     popupWindow.classList.add('popup_opened')
     document.addEventListener('keydown', pushEsc);
-    trueInfo()
-    reset(formCard)
-    openValid(validationConfig)
+    trueInfo()//в инпутах формы всегда текст с профиля
+    reset(formCard)//форма сбрасывает значения
+    openValid(validationConfig)//при открытии проходит валидация
 }
 //закрытие формы 
 function closeForm(item) {
