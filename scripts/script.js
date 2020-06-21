@@ -8,6 +8,8 @@ const jobInfo = document.querySelector('.profile-info__text');
 const inputName = document.querySelector('#name');
 const inputJob = document.querySelector('#job');
 // Находим форму в DOM  
+const inputNameCard = document.querySelector('#name-card');// нашли поля инпутов
+const inputLinkCard = document.querySelector('#link-card');
 const formElement = document.querySelector('.popup__container');
 //Открытие фотографий_______________  
 const photo = document.querySelector('.photo-popup__img');
@@ -49,9 +51,14 @@ const addButton = document.querySelector('.profile__add-button');
 //переменные для содержимого инпутов  
 const formCard = document.querySelector('#form');
 
-
-enableValidation(validationConfig);
-
+const validationConfig = {
+    formSelector: '.popup__container',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__btn',
+    inactiveButtonClass: 'popup__btn_invalid',
+    inputErrorClass: 'popup__input_error',
+    errorClass: 'popup__error_visible'
+}
 
 inputName.value = nameInfo.textContent;
 inputJob.value = jobInfo.textContent;
@@ -95,7 +102,6 @@ function openPhotoPopup(card) {
     imageText.textContent = text.textContent;
     openForm(photoPopup);
 }
-
 //значения не сохраненных инпутов при открытии
 function trueInfo() {
     inputName.value = nameInfo.textContent;
@@ -105,18 +111,19 @@ function trueInfo() {
 function reset(form) {
     form.reset();
 }
-//закрытие формы 
-function closeForm(item) {
-    item.classList.remove('popup_opened');
-}
+enableValidation(validationConfig);
 function openForm(popupWindow) {
     popupWindow.classList.add('popup_opened')
     document.addEventListener('keydown', pushEsc);
     trueInfo()
     reset(formCard)
-    openValid(popup)
+    openValid(validationConfig)
 }
-
+//закрытие формы 
+function closeForm(item) {
+    item.classList.remove('popup_opened');
+    document.removeEventListener('keydown', pushEsc);
+}
 //нажатие на клавишу
 function pushEsc(evt) {
     const windowOpen = document.querySelector('.popup_opened')
@@ -125,9 +132,6 @@ function pushEsc(evt) {
     };
 }
 // добавление карточки в разметку
-const inputNameCard = document.querySelector('#name-card');// нашли поля инпутов
-const inputLinkCard = document.querySelector('#link-card');
-
 function addCard(card, container) {
     container.prepend(card);
 }
@@ -152,8 +156,6 @@ function clickOver(item) {
         closeForm(openWindow)
     }
 }
-
-
 formCard.addEventListener('submit', formSubmitCard);
 formElement.addEventListener('submit', formSubmitHandler);
 editButton.addEventListener('click', () => { openForm(popup); });//кнопка открытия формы профиля
