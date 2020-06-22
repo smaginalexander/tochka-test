@@ -36,21 +36,18 @@ function handleInput(formElement, e, errorClass) {
     }
 }
 // функция сброса ошибок для формы добавления карточки
-function handleInputFormCard(formElement, e, errorClass) {//бросс ошибки инпутов
-    formElement = formElement.querySelector(`#${e.id}-error`);
-    e.classList.remove(errorClass);
+function handleInputFormCard(formElement, item, errorClass) {//бросс ошибки инпутов
+    formElement = formElement.querySelector(`#${item.id}-error`);
+    item.classList.remove(errorClass);
     formElement.textContent = '';
 }
-//проверка валидности при открытии формы(добавлена в функцию openForm в файле script.js)
-function openValid(options) {
-    const formElements = Array.from(document.querySelectorAll(options.formSelector));
-    formElements.forEach(formElement => {
-        const inputElements = Array.from(formElement.querySelectorAll(options.inputSelector));
-        const submitButton = formElement.querySelector('.popup__btn');
-        //применяем функции валидности/не валидности инпутов и кнопок
-        inputElements.forEach(e => {
-            setButtonState(formElement, submitButton, options.inactiveButtonClass);
-            handleInputFormCard(formElement, e, options.inputErrorClass)
-        })
+function resetValid(options, form) {
+    const inputElements = Array.from(form.querySelectorAll(options.inputSelector));
+    const submitButton = form.querySelector('.popup__btn');
+    const formElement = form.querySelector(options.formSelector)
+    //применяем функции валидности/не валидности инпутов и кнопок
+    inputElements.forEach(item => {
+        setButtonState(formElement, submitButton, options.inactiveButtonClass);
+        handleInputFormCard(formElement, item, options.inputErrorClass)
     })
 }
