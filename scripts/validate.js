@@ -10,7 +10,7 @@ function enableValidation(options) {
         const submitButton = formElement.querySelector('.popup__btn');
         //проверим валидность в каждом инпуте
         inputElements.forEach(input => {
-            input.addEventListener('input', e => handleInput(formElement, e.target, options.inputErrorClass))// добавил в аргументы форму
+            input.addEventListener('input', event => handleInput(formElement, event.target, options.inputErrorClass))// добавил в аргументы форму
             input.addEventListener('input', () => setButtonState(formElement, submitButton, options.inactiveButtonClass))
         })
     })
@@ -23,8 +23,8 @@ function setButtonState(formElement, submitButton, inactiveButtonClass) {
 
 }
 //ошибки в инпутах
-function handleInput(formElement, e, errorClass) {
-    const input = e;
+function handleInput(formElement, event, errorClass) {
+    const input = event;
     const isInputValid = input.checkValidity();
     formElement = formElement.querySelector(`#${input.id}-error`);
     if (input.checkValidity()) {

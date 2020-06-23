@@ -128,15 +128,15 @@ function pushEsc(evt) {
     };
 }
 //добавление карточки
-function submitCard(evt) {
-    evt.preventDefault();
+function submitCard(event) {
+    event.preventDefault();
     const newCard = createCard(inputLinkCard.value, inputNameCard.value)
     addCard(newCard, elementBlock)
     closeForm(newForm);
 }
 //сохранение формы  
-function submitUserInfo(evt) {
-    evt.preventDefault();
+function submitUserInfo(event) {
+    event.preventDefault();
     nameInfo.textContent = inputName.value;
     jobInfo.textContent = inputJob.value;
     closeForm(popup);
