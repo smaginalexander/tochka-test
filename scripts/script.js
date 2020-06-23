@@ -1,3 +1,4 @@
+"use strict";
 const editButton = document.querySelector('.profile-info__edit-button');
 const popup = document.querySelector('.popup');
 const photoPopup = document.querySelector('.photo-popup');
@@ -57,8 +58,16 @@ const validationConfig = {
     inputErrorClass: 'popup__input_error',
     errorClass: 'popup__error_visible'
 }
-inputName.value = nameInfo.textContent;
-inputJob.value = jobInfo.textContent;
+//функция открытие попапа с фоткой
+function openPhotoPopup(event) {
+    const cardContainer = event.target.closest('.element');
+    const zoomPhoto = cardContainer.querySelector('.element__image');
+    const zoomText = cardContainer.querySelector('.element__text');
+    imagePopup.src = zoomPhoto.src;
+    imagePopup.alt = zoomText.alt;
+    imageText.textContent = zoomText.textContent;
+    openForm(photoPopup);
+}
 //загружаем карточки на страницу  
 function createCard(link, name) {
     const cardClone = cardTemplate.cloneNode(true);
@@ -91,18 +100,8 @@ function render() {
     });
 }
 render()
-//функция открытие попапа с фоткой
-function openPhotoPopup(card) {
-    const cardContainer = card.target.closest('.element');
-    const zoomPhoto = cardContainer.querySelector('.element__image');
-    const zoomText = cardContainer.querySelector('.element__text');
-    imagePopup.src = zoomPhoto.src;
-    imagePopup.alt = zoomText.alt;
-    imageText.textContent = zoomText.textContent;
-    openForm(photoPopup);
-}
 //значения не сохраненных инпутов при открытии
-function SaveTrueInfo() {
+function setInputValues() {
     inputName.value = nameInfo.textContent;
     inputJob.value = jobInfo.textContent;
 }
@@ -111,13 +110,13 @@ function resetForm() {
     formCard.reset();
 }
 enableValidation(validationConfig);
-function openForm(openModalWindow) {
-    openModalWindow.classList.add('popup_opened')
+function openForm(openPopup) {
+    openPopup.classList.add('popup_opened')
     document.addEventListener('keydown', pushEsc);
 }
 //закрытие формы 
-function closeForm(closeModalWindow) {
-    closeModalWindow.classList.remove('popup_opened');
+function closeForm(closePopup) {
+    closePopup.classList.remove('popup_opened');
     document.removeEventListener('keydown', pushEsc);
 }
 //нажатие на клавишу
@@ -152,16 +151,16 @@ formCard.addEventListener('submit', submitCard);
 formElement.addEventListener('submit', submitUserInfo);
 //кнопка открытия формы профиля
 editButton.addEventListener('click', () => {
+    setInputValues();//в инпутах формы всегда текст с профиля
+    resetFormState(validationConfig, popup)//при открытии проходит валидация
     openForm(popup);
-    resetValid(validationConfig, popup)//при открытии проходит валидация
-    SaveTrueInfo();//в инпутах формы всегда текст с профиля
 });
 closePopup.addEventListener('click', () => { closeForm(popup); });
 //кнопка открытия формы добавления фотки
 addButton.addEventListener('click', () => {
-    openForm(newForm);
-    resetValid(validationConfig, newForm)//при открытии проходит валидация
     resetForm()//форма сбрасывает значения
+    resetFormState(validationConfig, newForm)//при открытии проходит валидация
+    openForm(newForm);
 });
 closeCards.addEventListener('click', () => { closeForm(newForm); });
 closePhoto.addEventListener('click', () => { closeForm(photoPopup); });//зыкрыть фотку

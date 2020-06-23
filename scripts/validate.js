@@ -1,3 +1,21 @@
+//ошибки в инпутах
+function handleInput(formElement, event, errorClass) {
+    const input = event;
+    const errorText = formElement.querySelector(`#${input.id}-error`);
+    if (input.checkValidity()) {
+        input.classList.remove(errorClass);
+        errorText.textContent = '';
+    } else {
+        input.classList.add(errorClass);
+        errorText.textContent = input.validationMessage;
+    }
+}
+//включение и выключение кнопки
+function setButtonState(formElement, submitButton, inactiveButtonClass) {
+    const hasErrors = !formElement.checkValidity();
+    submitButton.disabled = hasErrors;
+    submitButton.classList.toggle(inactiveButtonClass, hasErrors);
+}
 function enableValidation(options) {
     //нашли форму
     const formElements = Array.from(document.querySelectorAll(options.formSelector));
@@ -15,39 +33,19 @@ function enableValidation(options) {
         })
     })
 }
-//включение и выключение кнопки
-function setButtonState(formElement, submitButton, inactiveButtonClass) {
-    const hasErrors = !formElement.checkValidity();
-    submitButton.disabled = hasErrors;
-    submitButton.classList.toggle(inactiveButtonClass, hasErrors);
-
-}
-//ошибки в инпутах
-function handleInput(formElement, event, errorClass) {
-    const input = event;
-    const isInputValid = input.checkValidity();
-    formElement = formElement.querySelector(`#${input.id}-error`);
-    if (input.checkValidity()) {
-        input.classList.remove(errorClass);
-        formElement.textContent = '';
-    } else {
-        input.classList.add(errorClass);
-        formElement.textContent = input.validationMessage;
-    }
-}
 // функция сброса ошибок для формы добавления карточки
-function handleInputFormCard(formElement, item, errorClass) {//бросс ошибки инпутов
-    formElement = formElement.querySelector(`#${item.id}-error`);
+function resetInputError(formElement, item, errorClass) {//бросс ошибки инпутов
+    const errorText = formElement.querySelector(`#${item.id}-error`);
     item.classList.remove(errorClass);
-    formElement.textContent = '';
+    errorText.textContent = '';
 }
-function resetValid(options, form) {
+function resetFormState(options, form) {
     const inputElements = Array.from(form.querySelectorAll(options.inputSelector));
     const submitButton = form.querySelector('.popup__btn');
     const formElement = form.querySelector(options.formSelector)
     //применяем функции валидности/не валидности инпутов и кнопок
     inputElements.forEach(item => {
         setButtonState(formElement, submitButton, options.inactiveButtonClass);
-        handleInputFormCard(formElement, item, options.inputErrorClass)
+        resetInputError(formElement, item, options.inputErrorClass)
     })
 }
