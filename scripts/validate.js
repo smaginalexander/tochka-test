@@ -1,13 +1,22 @@
-//ошибки в инпутах
-function handleInput(formElement, event, errorClass) {
+//установка ошибок
+function setInputError(formElement, event, errorClass) {
     const input = event;
     const errorText = formElement.querySelector(`#${input.id}-error`);
+    input.classList.add(errorClass);
+    errorText.textContent = input.validationMessage;
+}
+//сброс ошибок 
+function resetInputError(formElement, item, errorClass) {
+    const errorText = formElement.querySelector(`#${item.id}-error`);
+    item.classList.remove(errorClass);
+    errorText.textContent = '';
+}
+function handleInput(formElement, event, errorClass) {
+    const input = event;
     if (input.checkValidity()) {
-        input.classList.remove(errorClass);
-        errorText.textContent = '';
+        resetInputError(formElement, event, errorClass)
     } else {
-        input.classList.add(errorClass);
-        errorText.textContent = input.validationMessage;
+        setInputError(formElement, event, errorClass)
     }
 }
 //включение и выключение кнопки
@@ -32,12 +41,6 @@ function enableValidation(options) {
             input.addEventListener('input', () => setButtonState(formElement, submitButton, options.inactiveButtonClass))
         })
     })
-}
-// функция сброса ошибок для формы добавления карточки
-function resetInputError(formElement, item, errorClass) {//бросс ошибки инпутов
-    const errorText = formElement.querySelector(`#${item.id}-error`);
-    item.classList.remove(errorClass);
-    errorText.textContent = '';
 }
 function resetFormState(options, form) {
     const inputElements = Array.from(form.querySelectorAll(options.inputSelector));

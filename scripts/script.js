@@ -58,6 +58,11 @@ const validationConfig = {
     inputErrorClass: 'popup__input_error',
     errorClass: 'popup__error_visible'
 }
+//открытие попапа
+function openWindow(popupWindow) {
+    popupWindow.classList.add('popup_opened')
+    document.addEventListener('keydown', pushEsc);
+}
 //функция открытие попапа с фоткой
 function openPhotoPopup(event) {
     const cardContainer = event.target.closest('.element');
@@ -66,7 +71,7 @@ function openPhotoPopup(event) {
     imagePopup.src = zoomPhoto.src;
     imagePopup.alt = zoomText.alt;
     imageText.textContent = zoomText.textContent;
-    openForm(photoPopup);
+    openWindow(photoPopup);
 }
 //загружаем карточки на страницу  
 function createCard(link, name) {
@@ -110,20 +115,16 @@ function resetForm() {
     formCard.reset();
 }
 enableValidation(validationConfig);
-function openForm(openPopup) {
-    openPopup.classList.add('popup_opened')
-    document.addEventListener('keydown', pushEsc);
-}
 //закрытие формы 
-function closeForm(closePopup) {
-    closePopup.classList.remove('popup_opened');
+function closeWindow(popupWindow) {
+    popupWindow.classList.remove('popup_opened');
     document.removeEventListener('keydown', pushEsc);
 }
 //нажатие на клавишу
 function pushEsc(evt) {
     if (evt.key === 'Escape') {
         const windowOpen = document.querySelector('.popup_opened')
-        closeForm(windowOpen);
+        closeWindow(windowOpen);
     };
 }
 //добавление карточки
@@ -131,20 +132,20 @@ function submitCard(event) {
     event.preventDefault();
     const newCard = createCard(inputLinkCard.value, inputNameCard.value)
     addCard(newCard, elementBlock)
-    closeForm(newForm);
+    closeWindow(newForm);
 }
 //сохранение формы  
 function submitUserInfo(event) {
     event.preventDefault();
     nameInfo.textContent = inputName.value;
     jobInfo.textContent = inputJob.value;
-    closeForm(popup);
+    closeWindow(popup);
 }
 //закрытие профиля на клик по оверлею 
 function closeOnOverlayClick(item) {
     if (item.target.classList.contains('popup')) {
         const openWindow = document.querySelector('.popup_opened');
-        closeForm(openWindow)
+        closeWindow(openWindow)
     }
 }
 formCard.addEventListener('submit', submitCard);
@@ -153,17 +154,17 @@ formElement.addEventListener('submit', submitUserInfo);
 editButton.addEventListener('click', () => {
     setInputValues();//в инпутах формы всегда текст с профиля
     resetFormState(validationConfig, popup)//при открытии проходит валидация
-    openForm(popup);
+    openWindow(popup);
 });
-closePopup.addEventListener('click', () => { closeForm(popup); });
+closePopup.addEventListener('click', () => { closeWindow(popup); });
 //кнопка открытия формы добавления фотки
 addButton.addEventListener('click', () => {
     resetForm()//форма сбрасывает значения
     resetFormState(validationConfig, newForm)//при открытии проходит валидация
-    openForm(newForm);
+    openWindow(newForm);
 });
-closeCards.addEventListener('click', () => { closeForm(newForm); });
-closePhoto.addEventListener('click', () => { closeForm(photoPopup); });//зыкрыть фотку
+closeCards.addEventListener('click', () => { closeWindow(newForm); });
+closePhoto.addEventListener('click', () => { closeWindow(photoPopup); });//зыкрыть фотку
 //закрытие профиля
 popup.addEventListener('click', closeOnOverlayClick);
 //закрытие нового места
