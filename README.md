@@ -1,4 +1,4 @@
-# Проект 6: Место
+# Проект 7: Место
 
 ### Обзор
 
@@ -10,5 +10,6 @@
 * popup
 * JavaScript
 * валидация форм
+* ООП
 * [Ссылка на GitHub Pages](https://smaginalexander.github.io/mesto/.)
 
