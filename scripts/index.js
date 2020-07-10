@@ -1,8 +1,22 @@
 "use strict";
-const editButton = document.querySelector('.profile-info__edit-button');
+import { Card } from "./Card.js"
+import { FormValidator } from "./FormValidator.js";
 const popup = document.querySelector('.popup');
-const photoPopup = document.querySelector('.photo-popup');
 const newForm = document.querySelector('#new-card');
+const validationConfig = {
+    formSelector: '.popup__container',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__btn',
+    inactiveButtonClass: 'popup__btn_invalid',
+    inputErrorClass: 'popup__input_error',
+    errorClass: 'popup__error_visible'
+}
+const profileValid = new FormValidator(validationConfig, popup)
+const addFormValid = new FormValidator(validationConfig, newForm)
+const editButton = document.querySelector('.profile-info__edit-button');
+
+export const photoPopup = document.querySelector('.photo-popup');
+
 const closePopup = document.querySelector('.popup__close')
 const nameInfo = document.querySelector('.profile-info__title');
 const jobInfo = document.querySelector('.profile-info__text');
@@ -48,50 +62,13 @@ const closeCards = document.querySelector('#close');
 const addButton = document.querySelector('.profile__add-button');
 //переменные для содержимого инпутов  
 const formCard = document.querySelector('#form');
-const imagePopup = document.querySelector('.photo-popup__img')
-const imageText = document.querySelector('.photo-popup__text')
-const validationConfig = {
-    formSelector: '.popup__container',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__btn',
-    inactiveButtonClass: 'popup__btn_invalid',
-    inputErrorClass: 'popup__input_error',
-    errorClass: 'popup__error_visible'
-}
+export const imagePopup = document.querySelector('.photo-popup__img')
+export const imageText = document.querySelector('.photo-popup__text')
+
 //открытие попапа
-function openWindow(popupWindow) {
-    popupWindow.classList.add('popup_opened')
+function openWindow(popupWindiw) {
+    popupWindiw.classList.add('popup_opened')
     document.addEventListener('keydown', pushEsc);
-}
-//функция открытие попапа с фоткой
-function openPhotoPopup(event) {
-    const cardContainer = event.target.closest('.element');
-    const zoomPhoto = cardContainer.querySelector('.element__image');
-    const zoomText = cardContainer.querySelector('.element__text');
-    imagePopup.src = zoomPhoto.src;
-    imagePopup.alt = zoomText.alt;
-    imageText.textContent = zoomText.textContent;
-    openWindow(photoPopup);
-}
-//загружаем карточки на страницу  
-function createCard(link, name) {
-    const cardClone = cardTemplate.cloneNode(true);
-    const image = cardClone.querySelector('.element__image')
-    const cardName = cardClone.querySelector('.element__text')
-    const like = cardClone.querySelector('.element__btn');//находим кнопку лайк  
-    const trash = cardClone.querySelector('.element__trash');//кнопка удаления карточки 
-    const card = cardClone.querySelector('.element');
-    cardName.textContent = name;
-    image.src = link;
-    image.alt = name;
-    like.addEventListener('click', function (event) {
-        event.target.closest('.element__btn').classList.toggle('element__btn_active');
-    });
-    trash.addEventListener('click', function (event) {
-        event.target.closest('.element').remove();
-    });
-    image.addEventListener('click', openPhotoPopup);
-    return card
 }
 // добавление карточки в разметку
 function addCard(card, container) {
@@ -100,9 +77,10 @@ function addCard(card, container) {
 //добавление изначальных карточек в разметку
 function render() {
     initialCards.forEach(item => {
-        const cards = createCard(item.link, item.name);
-        addCard(cards, elementBlock);
-    });
+        const card = new Card(item.link, item.name);
+        const cardElement = card.generateCard()
+        addCard(cardElement, elementBlock);
+    })
 }
 render()
 //значения не сохраненных инпутов при открытии
@@ -114,10 +92,9 @@ function setInputValues() {
 function resetForm() {
     formCard.reset();
 }
-enableValidation(validationConfig);
 //закрытие формы 
-function closeWindow(popupWindow) {
-    popupWindow.classList.remove('popup_opened');
+function closeWindow(popupWindiw) {
+    popupWindiw.classList.remove('popup_opened');
     document.removeEventListener('keydown', pushEsc);
 }
 //нажатие на клавишу
@@ -130,8 +107,9 @@ function pushEsc(evt) {
 //добавление карточки
 function submitCard(event) {
     event.preventDefault();
-    const newCard = createCard(inputLinkCard.value, inputNameCard.value)
-    addCard(newCard, elementBlock)
+    const card = new Card(inputLinkCard.value, inputNameCard.value);
+    const cardElement = card.generateCard()
+    addCard(cardElement, elementBlock);
     closeWindow(newForm);
 }
 //сохранение формы  
@@ -150,24 +128,25 @@ function closeOnOverlayClick(item) {
 }
 formCard.addEventListener('submit', submitCard);
 formElement.addEventListener('submit', submitUserInfo);
-//кнопка открытия формы профиля
 editButton.addEventListener('click', () => {
     setInputValues();//в инпутах формы всегда текст с профиля
-    resetFormState(validationConfig, popup)//при открытии проходит валидация
+    profileValid.enableValidation(popup);
+    profileValid.resetAllInputError();
     openWindow(popup);
 });
-closePopup.addEventListener('click', () => { closeWindow(popup); });
+closePopup.addEventListener('mousedown', () => { closeWindow(popup); });
 //кнопка открытия формы добавления фотки
 addButton.addEventListener('click', () => {
-    resetForm()//форма сбрасывает значения
-    resetFormState(validationConfig, newForm)//при открытии проходит валидация
+    resetForm()
+    addFormValid.enableValidation();
+    addFormValid.resetAllInputError();
     openWindow(newForm);
 });
-closeCards.addEventListener('click', () => { closeWindow(newForm); });
-closePhoto.addEventListener('click', () => { closeWindow(photoPopup); });//зыкрыть фотку
+closeCards.addEventListener('mousedown', () => { closeWindow(newForm); });
+closePhoto.addEventListener('mousedown', () => { closeWindow(photoPopup); });//зыкрыть фотку
 //закрытие профиля
-popup.addEventListener('click', closeOnOverlayClick);
+popup.addEventListener('mousedown', closeOnOverlayClick);
 //закрытие нового места
-newForm.addEventListener('click', closeOnOverlayClick);
+newForm.addEventListener('mousedown', closeOnOverlayClick);
 //закрытие попапа с фоткой
-photoPopup.addEventListener('click', closeOnOverlayClick);
+photoPopup.addEventListener('mousedown', closeOnOverlayClick);
