@@ -1,8 +1,9 @@
-import { imagePopup as zoomPhoto, imageText as zoomText, photoPopup } from "./index.js"
+import { imagePopup as zoomPhoto, imageText as zoomText, photoPopup } from "./utils.js"
 export class Card {
-    constructor(link, name) {
+    constructor(link, name, templateSelector) {
         this._link = link;
         this._name = name;
+        this._templateSelector = templateSelector;
     }
     //Получаем разметку карточки
     _getTemplate() {

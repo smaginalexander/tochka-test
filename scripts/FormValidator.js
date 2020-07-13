@@ -11,27 +11,28 @@ export class FormValidator {
     //устоновка ошибок
     _setInputError(inputElement) {//передаю параметром инпут 
         const form = this._formElement.querySelector(this._formSelector);
-        const input = inputElement;
-        input.classList.add(this._inputErrorClass);
-        const errorText = form.querySelector(`#${input.id}-error`);
-        errorText.textContent = input.validationMessage;
+        inputElement.classList.add(this._inputErrorClass);
+        const errorText = form.querySelector(`#${inputElement.id}-error`);
+        errorText.textContent = inputElement.validationMessage;
     }
     //сброс ошибок для отдельного инпута
     _resetInputError(inputElement) {
         const form = this._formElement.querySelector(this._formSelector);
-        const input = inputElement;
-        input.classList.remove(this._inputErrorClass);
-        const errorText = form.querySelector(`#${input.id}-error`);
+        inputElement.classList.remove(this._inputErrorClass);
+        const errorText = form.querySelector(`#${inputElement.id}-error`);
         errorText.textContent = '';
     }
     //сброс ошибок для всех инпутов
     resetAllInputError() {
         const form = this._formElement.querySelector(this._formSelector);
         const input = form.querySelectorAll(this._inputSelector);
+        const submitButton = form.querySelector(this._submitButtonSelector);
         input.forEach((element) => {
             element.classList.remove(this._inputErrorClass);
             const errorText = form.querySelector(`#${element.id}-error`);
             errorText.textContent = '';
+            submitButton.removeAttribute("disabled");
+            submitButton.classList.remove(this._inactiveButtonClass);
         })
     }
     //включение и выключение кнопки
@@ -47,25 +48,28 @@ export class FormValidator {
         }
     }
     _handleInput(inputElement) {
-        const input = inputElement;
-        if (input.checkValidity()) {
+        if (inputElement.checkValidity()) {
             this._resetInputError(inputElement);
         } else {
             this._setInputError(inputElement);
         }
     }
+    //слушатели инпутов
+    _setEventListeners(element) {
+        element.addEventListener('input', () => this._handleInput(element));
+        element.addEventListener('input', () => this._setButtonState());
+    }
     enableValidation() {
-        //нашли форму
+        //нашли форму 
         const form = this._formElement.querySelector(this._formSelector);
         form.addEventListener('submit', evt => {
             evt.preventDefault()
         })
-        //нашли инпуты
+        //нашли инпуты 
         const inputList = form.querySelectorAll(this._inputSelector);
-        //проверим валидность в каждом инпуте
+        //проверим валидность в каждом инпуте 
         inputList.forEach(input => {
-            input.addEventListener('input', () => this._handleInput(input));//появление исчезание ошибок
-            input.addEventListener('input', () => this._setButtonState());//кнопка активна/неактивнa
+            this._setEventListeners(input);
         })
     }
 }

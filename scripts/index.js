@@ -1,8 +1,10 @@
 "use strict";
-import { Card } from "./Card.js"
+import { Card } from "./Card.js";
+import { initialCards } from "./initialCards.js";
 import { FormValidator } from "./FormValidator.js";
-const popup = document.querySelector('.popup');
-const newForm = document.querySelector('#new-card');
+import { photoPopup } from "./utils.js"
+const profilePopup = document.querySelector('.profilePopup');
+const addCardPopup = document.querySelector('.addCardPopup');
 const validationConfig = {
     formSelector: '.popup__container',
     inputSelector: '.popup__input',
@@ -11,12 +13,9 @@ const validationConfig = {
     inputErrorClass: 'popup__input_error',
     errorClass: 'popup__error_visible'
 }
-const profileValid = new FormValidator(validationConfig, popup)
-const addFormValid = new FormValidator(validationConfig, newForm)
+const profileValid = new FormValidator(validationConfig, profilePopup);
+const addFormValid = new FormValidator(validationConfig, addCardPopup);
 const editButton = document.querySelector('.profile-info__edit-button');
-
-export const photoPopup = document.querySelector('.photo-popup');
-
 const closePopup = document.querySelector('.popup__close')
 const nameInfo = document.querySelector('.profile-info__title');
 const jobInfo = document.querySelector('.profile-info__text');
@@ -27,34 +26,6 @@ const inputNameCard = document.querySelector('#name-card');// нашли пол�
 const inputLinkCard = document.querySelector('#link-card');
 const formElement = document.querySelector('.popup__container');
 const closePhoto = document.querySelector('#close-photo');
-//загрузка карточек на страницу  
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-const cardTemplate = document.querySelector('#card').content;
 const elementBlock = document.querySelector('.elements');
 //сделаем новую переменную для кнопки закрытия второго попапа  
 const closeCards = document.querySelector('#close');
@@ -62,12 +33,9 @@ const closeCards = document.querySelector('#close');
 const addButton = document.querySelector('.profile__add-button');
 //переменные для содержимого инпутов  
 const formCard = document.querySelector('#form');
-export const imagePopup = document.querySelector('.photo-popup__img')
-export const imageText = document.querySelector('.photo-popup__text')
-
 //открытие попапа
-function openWindow(popupWindiw) {
-    popupWindiw.classList.add('popup_opened')
+function openWindow(popupWindow) {
+    popupWindow.classList.add('popup_opened')
     document.addEventListener('keydown', pushEsc);
 }
 // добавление карточки в разметку
@@ -75,14 +43,12 @@ function addCard(card, container) {
     container.prepend(card);
 }
 //добавление изначальных карточек в разметку
-function render() {
-    initialCards.forEach(item => {
-        const card = new Card(item.link, item.name);
-        const cardElement = card.generateCard()
-        addCard(cardElement, elementBlock);
-    })
-}
-render()
+initialCards.forEach(item => {
+    const templateSelector = document.querySelector('#card')
+    const card = new Card(item.link, item.name, templateSelector);
+    const cardElement = card.generateCard()
+    addCard(cardElement, elementBlock);
+})
 //значения не сохраненных инпутов при открытии
 function setInputValues() {
     inputName.value = nameInfo.textContent;
@@ -93,8 +59,8 @@ function resetForm() {
     formCard.reset();
 }
 //закрытие формы 
-function closeWindow(popupWindiw) {
-    popupWindiw.classList.remove('popup_opened');
+function closeWindow(popupWindow) {
+    popupWindow.classList.remove('popup_opened');
     document.removeEventListener('keydown', pushEsc);
 }
 //нажатие на клавишу
@@ -110,14 +76,14 @@ function submitCard(event) {
     const card = new Card(inputLinkCard.value, inputNameCard.value);
     const cardElement = card.generateCard()
     addCard(cardElement, elementBlock);
-    closeWindow(newForm);
+    closeWindow(addCardPopup);
 }
 //сохранение формы  
 function submitUserInfo(event) {
     event.preventDefault();
     nameInfo.textContent = inputName.value;
     jobInfo.textContent = inputJob.value;
-    closeWindow(popup);
+    closeWindow(profilePopup);
 }
 //закрытие профиля на клик по оверлею 
 function closeOnOverlayClick(item) {
@@ -126,27 +92,29 @@ function closeOnOverlayClick(item) {
         closeWindow(openWindow)
     }
 }
+//валидация форм
+profileValid.enableValidation();
+addFormValid.enableValidation();
+
 formCard.addEventListener('submit', submitCard);
 formElement.addEventListener('submit', submitUserInfo);
 editButton.addEventListener('click', () => {
     setInputValues();//в инпутах формы всегда текст с профиля
-    profileValid.enableValidation(popup);
     profileValid.resetAllInputError();
-    openWindow(popup);
+    openWindow(profilePopup);
 });
-closePopup.addEventListener('mousedown', () => { closeWindow(popup); });
+closePopup.addEventListener('mousedown', () => { closeWindow(profilePopup); });
 //кнопка открытия формы добавления фотки
 addButton.addEventListener('click', () => {
     resetForm()
-    addFormValid.enableValidation();
     addFormValid.resetAllInputError();
-    openWindow(newForm);
+    openWindow(addCardPopup);
 });
-closeCards.addEventListener('mousedown', () => { closeWindow(newForm); });
+closeCards.addEventListener('mousedown', () => { closeWindow(addCardPopup); });
 closePhoto.addEventListener('mousedown', () => { closeWindow(photoPopup); });//зыкрыть фотку
 //закрытие профиля
-popup.addEventListener('mousedown', closeOnOverlayClick);
+profilePopup.addEventListener('mousedown', closeOnOverlayClick);
 //закрытие нового места
-newForm.addEventListener('mousedown', closeOnOverlayClick);
+addCardPopup.addEventListener('mousedown', closeOnOverlayClick);
 //закрытие попапа с фоткой
 photoPopup.addEventListener('mousedown', closeOnOverlayClick);
