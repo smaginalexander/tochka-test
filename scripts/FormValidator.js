@@ -26,13 +26,9 @@ export class FormValidator {
     resetAllInputError() {
         const form = this._formElement.querySelector(this._formSelector);
         const input = form.querySelectorAll(this._inputSelector);
-        const submitButton = form.querySelector(this._submitButtonSelector);
         input.forEach((element) => {
-            element.classList.remove(this._inputErrorClass);
-            const errorText = form.querySelector(`#${element.id}-error`);
-            errorText.textContent = '';
-            submitButton.removeAttribute("disabled");
-            submitButton.classList.remove(this._inactiveButtonClass);
+            this._resetInputError(element);
+            this._setButtonState();
         })
     }
     //включение и выключение кнопки
@@ -54,22 +50,18 @@ export class FormValidator {
             this._setInputError(inputElement);
         }
     }
-    //слушатели инпутов
-    _setEventListeners(element) {
-        element.addEventListener('input', () => this._handleInput(element));
-        element.addEventListener('input', () => this._setButtonState());
+    //слушатели событий
+    _setEventListeners() {
+        const form = this._formElement.querySelector(this._formSelector);
+        const inputList = form.querySelectorAll(this._inputSelector);
+        inputList.forEach(input => {
+            input.addEventListener('input', () => {
+                this._handleInput(input);
+                this._setButtonState();
+            });
+        });
     }
     enableValidation() {
-        //нашли форму 
-        const form = this._formElement.querySelector(this._formSelector);
-        form.addEventListener('submit', evt => {
-            evt.preventDefault()
-        })
-        //нашли инпуты 
-        const inputList = form.querySelectorAll(this._inputSelector);
-        //проверим валидность в каждом инпуте 
-        inputList.forEach(input => {
-            this._setEventListeners(input);
-        })
+        this._setEventListeners();
     }
 }

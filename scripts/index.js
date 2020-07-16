@@ -44,8 +44,7 @@ function addCard(card, container) {
 }
 //добавление изначальных карточек в разметку
 initialCards.forEach(item => {
-    const templateSelector = document.querySelector('#card')
-    const card = new Card(item.link, item.name, templateSelector);
+    const card = new Card(item.link, item.name, '#card');
     const cardElement = card.generateCard()
     addCard(cardElement, elementBlock);
 })
@@ -73,7 +72,7 @@ function pushEsc(evt) {
 //добавление карточки
 function submitCard(event) {
     event.preventDefault();
-    const card = new Card(inputLinkCard.value, inputNameCard.value);
+    const card = new Card(inputLinkCard.value, inputNameCard.value, '#card');
     const cardElement = card.generateCard()
     addCard(cardElement, elementBlock);
     closeWindow(addCardPopup);

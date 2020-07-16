@@ -8,7 +8,7 @@ export class Card {
     //Получаем разметку карточки
     _getTemplate() {
         const cardElement = document
-            .querySelector('#card')
+            .querySelector(this._templateSelector)
             .content
             .querySelector('.element')
             .cloneNode(true);
