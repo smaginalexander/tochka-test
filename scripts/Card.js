@@ -1,4 +1,6 @@
-import { imagePopup as zoomPhoto, imageText as zoomText, photoPopup } from "./utils.js"
+import { imagePopup as zoomPhoto, imageText as zoomText, photoPopup } from "./utils.js";
+import { pushEsc } from "./utils.js";
+
 export class Card {
     constructor(link, name, templateSelector) {
         this._link = link;
@@ -35,6 +37,7 @@ export class Card {
         zoomPhoto.src = this._link;
         zoomText.textContent = this._name;
         photoPopup.classList.add('popup_opened');
+        document.addEventListener('keydown', pushEsc);
     }
     //Слушатель событий
     _setEventListeners() {

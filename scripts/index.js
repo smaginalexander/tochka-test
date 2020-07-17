@@ -3,6 +3,7 @@ import { Card } from "./Card.js";
 import { initialCards } from "./initialCards.js";
 import { FormValidator } from "./FormValidator.js";
 import { photoPopup } from "./utils.js"
+import { closeWindow } from './utils.js'
 const profilePopup = document.querySelector('.profilePopup');
 const addCardPopup = document.querySelector('.addCardPopup');
 const validationConfig = {
@@ -56,11 +57,6 @@ function setInputValues() {
 //сброс значений ипутов у формы добавления карточки
 function resetForm() {
     formCard.reset();
-}
-//закрытие формы 
-function closeWindow(popupWindow) {
-    popupWindow.classList.remove('popup_opened');
-    document.removeEventListener('keydown', pushEsc);
 }
 //нажатие на клавишу
 function pushEsc(evt) {
