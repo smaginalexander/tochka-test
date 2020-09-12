@@ -1,4 +1,4 @@
-# Проект 7: Место
+# Проект 8: Место
 
 ### Обзор
 
@@ -7,9 +7,8 @@
 ### Использование технологий
 * адаптивная верстка
 * grid сетка
-* popup
 * JavaScript
 * валидация форм
 * ООП
+* webpack
 * [Ссылка на GitHub Pages](https://smaginalexander.github.io/mesto/.)
-
