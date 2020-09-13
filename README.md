@@ -11,4 +11,4 @@
 * валидация форм
 * ООП
 * webpack
-* [GitHub Pages](https://smaginalexander.github.io/mesto/)
+* [ПОСМОТРЕТЬ](https://smaginalexander.github.io/mesto/)
