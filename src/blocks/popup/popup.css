@@ -4,6 +4,7 @@
 @import url(./__btn/popup__btn.css);
 @import url(./__text/popup__text.css);
 @import url(./__error/popup__error.css);
+@import url(./__btn/_invalid/popup__btn_invalid.css);
 
 .popup {
     visibility: hidden;

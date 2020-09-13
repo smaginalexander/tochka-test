@@ -1,9 +1,4 @@
 import { Popup } from "./Popup.js";
-import {
-    closePopup,
-    closeCards
-} from "../utils/constants.js";
-
 export class PopupWithForm extends Popup {
     constructor({ popupSelector, formSubmitCallback }) {
         super(popupSelector)
@@ -18,20 +13,23 @@ export class PopupWithForm extends Popup {
         });
         return this._formValues;
     }
+    _close() {
+        super.close();
+        document.getElementById('form').reset()
+    }
     _formSubmitHandler(evt) {
         evt.preventDefault();
         this._formSubmitCallback(this._getInputValues());
-        super.close();
     }
+
     setEventListeners() {
         super.setEventListeners();
         this._popupSelector.addEventListener('submit', this._formSubmitHandler);
-        closePopup.addEventListener('click', () => {
-            this.close();
-        })
-        closeCards.addEventListener('click', () => {
-            super.close();
-            document.getElementById('form').reset()
-        })
+        this._popupSelector.addEventListener('submit', () => {
+            this._close()
+        });
+        this._popupSelector.querySelector('.popup__close').addEventListener('click', () => {
+            this._close()
+        });
     }
 }

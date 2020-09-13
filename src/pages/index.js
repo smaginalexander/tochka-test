@@ -15,23 +15,30 @@ import {
     addButton,
     initialCards,
     inputName,
-    inputJob
+    inputJob,
+    btn
 } from "../utils/constants.js";
 const profileValid = new FormValidator(validationConfig, profilePopup);
 const addFormValid = new FormValidator(validationConfig, addCardPopup);
 const popupWithPhoto = new PopupWithImage(photoPopup);
+///функция для вставки
+function putClassCard(item) {
+    const card = new Card({
+        link: item.link,
+        name: item.name
+    },
+        '#card',
+        () => popupWithPhoto.open(item.link, item.name));
+    popupWithPhoto.setEventListeners()
+    const cardElement = card.generateCard();
+    cards.addItem(cardElement);
+}
+
 //загрузка изначальных карточек
 const cards = new Section({
     items: initialCards,
     renderer: item => {
-        const card = new Card(
-            item.link,
-            item.name,
-            '#card',
-            () => popupWithPhoto.open(item.link, item.name));
-        popupWithPhoto.setEventListeners()
-        const cardElement = card.generateCard();
-        cards.addItem(cardElement);
+        putClassCard(item)
     }
 }, '.elements');
 
@@ -43,26 +50,22 @@ const userInfo = new UserInfo({
 const userInfoPopup = new PopupWithForm({
     popupSelector: profilePopup,
     formSubmitCallback: (data) => {
-        userInfo.setUserInfo(data.userName, data.userJob);
+        userInfo.setUserInfo({
+            newName: data.userName,
+            newInfo: data.userJob,
+        });
     }
-});
+})
 //попап добавления карточки
 const newCardPopup = new PopupWithForm({
     popupSelector: addCardPopup,
     formSubmitCallback: (data) => {
-        const card = new Card(
-            data.cardLink,
-            data.cardName,
-            '#card',
-            () => popupWithPhoto.open(data.link, data.name));
-        popupWithPhoto.setEventListeners()
-        const cardElement = card.generateCard();
-        cards.addItem(cardElement);
+        putClassCard(data)
     }
 })
-//валидация форм
-profileValid.enableValidation();
+
 addFormValid.enableValidation();
+profileValid.enableValidation();
 //кнопка открытия формы добавления фотки
 addButton.addEventListener('click', () => {
     addFormValid.resetAllInputError();
@@ -72,12 +75,13 @@ addButton.addEventListener('click', () => {
 //кнопка открытия редадактирования профиля
 editButton.addEventListener('click', () => {
     profileValid.resetAllInputError();
-    userInfoPopup.open();
-    userInfoPopup.setEventListeners();
+    btn.classList.remove('popup__btn_invalid');
     //текст в инпуте редактирования профиля
     const profileInfo = userInfo.getUserInfo()
     inputName.value = profileInfo.name
     inputJob.value = profileInfo.info
+    userInfoPopup.open();
+    userInfoPopup.setEventListeners();
 });
 popupWithPhoto.setEventListeners()
 userInfoPopup.setEventListeners()

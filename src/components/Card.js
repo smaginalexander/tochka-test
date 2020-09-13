@@ -1,5 +1,5 @@
 export class Card {
-    constructor(link, name, templateSelector, handleCardClick) {
+    constructor({ link, name }, templateSelector, handleCardClick) {
         this._link = link;
         this._name = name;
         this._templateSelector = templateSelector;
@@ -28,7 +28,8 @@ export class Card {
     }
     //удаление карточки
     _deleteCard() {
-        this._element.remove()
+        this._element.remove();
+        this._element = null;
     }
     //Слушатель событий
     _setEventListeners() {
@@ -39,9 +40,7 @@ export class Card {
             this._deleteCard();
         });
         this._element.querySelector('.element__image').addEventListener('click', () => {
-            console.log('клик сработал');
             this._handleCardClick({ link: this.link, name: this._name });
         });
-
     }
 }

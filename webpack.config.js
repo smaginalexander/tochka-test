@@ -10,7 +10,7 @@ module.exports = {
         rules: [
             {
                 test: /\.m?js$/,
-                exclude: /(node_modules)/,
+                exclude: '/node_modules/',
                 use: {
                     loader: 'babel-loader',
                 }
@@ -24,12 +24,12 @@ module.exports = {
                     { loader: 'css-loader', options: { importLoaders: 1 } },
                     'postcss-loader'],
             }, {
-                test: /\.(png|jpe?g|gif|woff2|woff|svg)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                    },
-                ],
+                test: /\.(png|svg|jpg|gif)$/,
+                loader: 'file-loader?name=./images/[name].[ext]' // сюда складывать изображения
+            },
+            {
+                test: /\.(eot|ttf|woff|woff2)$/,
+                loader: 'file-loader?name=./vendor/[name].[ext]' // сюда  складывать шрифты
             },
         ]
     },

@@ -4,14 +4,14 @@
   "description": "Проект посвящен созданию профиля с возможностью взаимодействия с интерактивными элементами. Добавление и удаление элементов плавное открытие и закрытие модального окна. Лайв-валидация формы.",
   "main": "index.js",
   "scripts": {
-    "build": "rd /s /q dist && webpack --mode production",
-    "dev": "webpack-dev-server --open --mode development"
+    "build": "rimraf dist && webpack --mode production",
+    "dev": "webpack-dev-server --open --watch --mode development"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/smaginalexander/mesto.git"
   },
-  "author": "",
+  "author": "Alexandr Smagin",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/smaginalexander/mesto/issues"
@@ -36,7 +36,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.11.5",
-    "core-js": "^3.6.5"
+    "core-js": "^3.6.5",
+    "rimraf": "^3.0.2"
   }
 }

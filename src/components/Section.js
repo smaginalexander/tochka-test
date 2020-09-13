@@ -6,7 +6,7 @@ export class Section {
     }
     //добавить элемент в разметку
     addItem(element) {
-        this._container.append(element);
+        this._container.prepend(element);
     }
     //отрисовка всех елементов массива
     renderElements() {

@@ -1,6 +1,7 @@
 export const photoPopup = document.querySelector('.photo-popup');
 export const imagePopup = document.querySelector('.photo-popup__img');
 export const imageText = document.querySelector('.photo-popup__text');
+export const btn = document.querySelector('.popup__btn')
 export const validationConfig = {
     formSelector: '.popup__container',
     inputSelector: '.popup__input',
@@ -9,6 +10,7 @@ export const validationConfig = {
     inputErrorClass: 'popup__input_error',
     errorClass: 'popup__error_visible'
 }
+validationConfig.submitButtonSelector
 export const initialCards = [
     {
         name: 'Архыз',
