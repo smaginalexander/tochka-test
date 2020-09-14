@@ -29,7 +29,6 @@ function putClassCard(item) {
     },
         '#card',
         () => popupWithPhoto.open(item.link, item.name));
-    popupWithPhoto.setEventListeners()
     const cardElement = card.generateCard();
     cards.addItem(cardElement);
 }
@@ -70,7 +69,6 @@ profileValid.enableValidation();
 addButton.addEventListener('click', () => {
     addFormValid.resetAllInputError();
     newCardPopup.open();
-    newCardPopup.setEventListeners();
 });
 //кнопка открытия редадактирования профиля
 editButton.addEventListener('click', () => {
@@ -81,7 +79,6 @@ editButton.addEventListener('click', () => {
     inputName.value = profileInfo.name
     inputJob.value = profileInfo.info
     userInfoPopup.open();
-    userInfoPopup.setEventListeners();
 });
 popupWithPhoto.setEventListeners()
 userInfoPopup.setEventListeners()
