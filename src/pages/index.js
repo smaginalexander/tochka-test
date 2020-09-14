@@ -28,7 +28,10 @@ function putClassCard(item) {
         name: item.name
     },
         '#card',
-        () => popupWithPhoto.open(item.link, item.name));
+        () => popupWithPhoto.open({
+            link: item.link,
+            name: item.name
+        }));
     const cardElement = card.generateCard();
     cards.addItem(cardElement);
 }
