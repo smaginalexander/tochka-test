@@ -1,3 +1,4 @@
+import { popup } from "../utils/constants.js"
 export class Popup {
     constructor(popupSelector) {
         this._popupSelector = popupSelector;
@@ -14,8 +15,6 @@ export class Popup {
     }
     close() {
         this._popupSelector.classList.remove('popup_opened');
-        //нажатие на клавишу еск
-        document.removeEventListener('keydown', this._handleEscClose)
     }
     _handleEscClose(evt) {
         if (evt.key === 'Escape') {
