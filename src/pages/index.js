@@ -8,20 +8,20 @@ import { PopupWithSubmit } from "../components/PopupWithSubmit.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
-import {
-    photoPopup,
-    validationConfig,
-    profilePopup,
-    addCardPopup,
-    editButton,
-    addButton,
-    inputName,
-    inputJob,
-    btn,
-    avatar,
-    avatarPopup,
-    confirm
-} from "../utils/constants.js";
+import { validationConfig } from "../utils/constants.js";
+
+const photoPopup = document.querySelector('.photo-popup');
+const profilePopup = document.querySelector('.profilePopup');
+const addCardPopup = document.querySelector('.addCardPopup');
+const editButton = document.querySelector('.profile-info__edit-button');
+const addButton = document.querySelector('.profile__add-button');
+const inputName = document.querySelector('#name');
+const inputJob = document.querySelector('#job');
+const btn = document.querySelector('.popup__btn');
+const avatar = document.querySelector('.profile__change');
+const avatarPopup = document.querySelector('.popup__newAvatar');
+const confirm = document.querySelector('.popup__confirm');
+
 const profileValid = new FormValidator(validationConfig, profilePopup);
 const addFormValid = new FormValidator(validationConfig, addCardPopup);
 const popupWithPhoto = new PopupWithImage(photoPopup);
@@ -47,7 +47,7 @@ const likeCard = (event, card) => {
     if (!event.target.classList.contains("element__btn_active")) {
         api.unlikeCard(card._id)
             .then((res) => {
-                quantityLike.textContent = res.likes.length;;
+                quantityLike.textContent = res.likes.length;
             })
             .catch((err) => {
                 alert(err);
@@ -103,7 +103,7 @@ const deleteCard = (card) => {
     api.deleteCard(card._id)
         .then((res) => {
             card.delete();
-            console.log(res.message);
+            confirmPopup.close()
         })
         .catch((err) => {
             alert(err);
@@ -152,6 +152,7 @@ const userInfoPopup = new PopupWithForm({
                     newName: result.name,
                     newInfo: result.about,
                 })
+                userInfoPopup.close()
             })
             .catch((err) => {
                 alert(err);
@@ -176,6 +177,7 @@ const loadingNewAvatar = (data) => {
     api.patchNewAvatar(data)
         .then((res) => {
             userInfo.setAvatar(res.avatar);
+            loadAvatar.close();
         })
         .catch((err) => {
             alert(err);
@@ -196,14 +198,16 @@ const newCardPopup = new PopupWithForm({
                 putClassCard({
                     name: data.name,
                     link: data.link,
+                    likes: result.likes.length,
                     owner: result.owner
                 })
+                newCardPopup.close();
             })
             .catch((err) => {
                 alert(err);
             })
             .finally(() => {
-                buttonAvatar.textContent = 'создать';
+                buttonNewCard.textContent = 'Создать';
             })
     }
 })

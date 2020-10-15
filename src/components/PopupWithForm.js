@@ -14,14 +14,13 @@ export class PopupWithForm extends Popup {
         });
         return this._formValues;
     }
-    _close() {
+    close() {
         super.close();
         this._form.reset()
     }
     _formSubmitHandler(evt) {
         evt.preventDefault();
         this._formSubmitCallback(this._getInputValues());
-        this._close()
     }
 
     setEventListeners() {
