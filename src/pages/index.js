@@ -50,7 +50,7 @@ const likeCard = (event, card) => {
                 quantityLike.textContent = res.likes.length;
             })
             .catch((err) => {
-                alert(err);
+                console.log(err);
             })
     } else {
         api.likeCard(card._id)
@@ -58,7 +58,7 @@ const likeCard = (event, card) => {
                 quantityLike.textContent = res.likes.length;
             })
             .catch((err) => {
-                alert(err);
+                console.log(err);
             })
     }
 }
@@ -106,7 +106,7 @@ const deleteCard = (card) => {
             confirmPopup.close()
         })
         .catch((err) => {
-            alert(err);
+            console.log(err);
         })
         .finally(() => {
             deleteButton.textContent = 'да'
@@ -127,7 +127,7 @@ Promise.all([api.loadingUserInfo(), api.loadingCards()])
             userInfo.setUserId(user.id);
     })
     .catch((err) => {
-        alert(err);
+        console.log(err);
     })
 
 
@@ -155,7 +155,7 @@ const userInfoPopup = new PopupWithForm({
                 userInfoPopup.close()
             })
             .catch((err) => {
-                alert(err);
+                console.log(err);
             })
             .finally(() => {
                 buttonInfo.textContent = 'Сохранить';
@@ -180,7 +180,7 @@ const loadingNewAvatar = (data) => {
             loadAvatar.close();
         })
         .catch((err) => {
-            alert(err);
+            console.log(err);
         })
         .finally(() => {
             buttonAvatar.textContent = 'Сохранить';
@@ -194,17 +194,12 @@ const newCardPopup = new PopupWithForm({
         const buttonNewCard = document.querySelector('#save');
         buttonNewCard.textContent = 'Добавление...'
         api.loadNewCard(data.name, data.link)
-            .then(result => {
-                putClassCard({
-                    name: data.name,
-                    link: data.link,
-                    likes: result.likes.length,
-                    owner: result.owner
-                })
+            .then((result) => {
+                putClassCard(result)
                 newCardPopup.close();
             })
             .catch((err) => {
-                alert(err);
+                console.log(err);
             })
             .finally(() => {
                 buttonNewCard.textContent = 'Создать';

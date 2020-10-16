@@ -95,14 +95,11 @@ export class Api {
     }
     //
     patchNewAvatar(link) {
-        const avatar = {
-            avatar: link.userPhoto
-        }
-        console.log(avatar)
+        console.log(link)
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
-            body: JSON.stringify(avatar)
+            body: JSON.stringify(link)
         })
             .then(this._checkResult);
     }

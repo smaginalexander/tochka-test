@@ -9,6 +9,7 @@
     height: 19px;
     background-size: cover;
     border: none;
+    outline: none;
 }
 
 .element__trash:hover {
