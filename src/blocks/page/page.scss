@@ -1,0 +1,12 @@
+$main-color: #343539;
+$main-font-family: "Helvetica Neue";
+
+* {
+    box-sizing: border-box;
+}
+
+.page {
+    background-color: $main-color;
+    font-family: $main-font-family;
+    color: white;
+}

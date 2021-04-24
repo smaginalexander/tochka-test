@@ -4,103 +4,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Место</title>
-
-
+    <title>Tochka-form</title>
 </head>
 
-<body>
-
-    <div class="page">
-        <header class="header">
-            <img class="header__logo" src="./images/logo.svg" alt="логотип">
-        </header>
-        <section class="profile">
-            <img class="profile__avatar" src="#" alt="аватар">
-            <img class="profile__change" src="./images/pen.png" alt="ручка">
-            <div class="profile-info">
-                <div class="profile__conteiner">
-                    <h1 class="profile-info__title">Жак-Ив Кусто</h1>
-                    <button aria-label="редактировать" class="profile-info__edit-button" type="button"></button>
-                </div>
-
-                <p class="profile-info__text">Исследователь океана</p>
+<body class="page">
+    <form class="form">
+        <h1 class="form__title">FTL: Прямая машина</h1>
+        <fieldset>
+            <div class="form__step-container">
+                <img src='./images/step1.svg' alt="step-icon">
+                <p>Маршрут</p>
             </div>
-
-            <button aria-label="добавить" class="profile__add-button" type="button"></button>
-        </section>
-        <section class="elements">
-            <template id="card">
-                <div class="element">
-                    <img class="element__image" src="#" alt="">
-                    <button class="element__trash"></button>
-                    <div class="element__element-container">
-                        <h2 class="element__text"></h2>
-                        <button aria-label="нравится" class="element__btn" type="button"></button>
-                        <span class="element__likeNamber">0</span>
+            <label for="from-where" class="input-title">Откуда</label>
+            <input type=text class="form__input" id="from-where">
+            <label for="from-to" class="input-title">Куда</label>
+            <input type=text class="form__input" id="from-to">
+        </fieldset>
+        <fieldset>
+            <div class="form__step-container">
+                <img src='./images/step2.svg' alt="step-icon">
+                <p>Транспорт</p>
+            </div>
+            <div class="form__input-section">
+                <div class="form__input-container">
+                    <p class="input-title">Грузоподъёмность</p>
+                    <div class="select" data-state="" id='lifting-capacity'>
+                        <div class="select__title" data-default="Option 0"><span class="span">Не выбрана</span>
+                        </div>
+                        <div class="select__content">
+                            <input id="singleSelect0" class="select__input" type="radio" name="singleSelect" />
+                            <label for="singleSelect0" class="select__label">Вариант</label>
+                            <input id="singleSelect0" class="select__input" type="radio" name="singleSelect" />
+                            <label for="singleSelect0" class="select__label">Вариант 1</label>
+                            <input id="singleSelect1" class="select__input" type="radio" name="singleSelect" />
+                            <label for="singleSelect1" class="select__label">Вариант 2</label>
+                            <input id="singleSelect2" class="select__input" type="radio" name="singleSelect" />
+                            <label for="singleSelect2" class="select__label">Вариант 3</label>
+                            <input id="singleSelect3" class="select__input" type="radio" name="singleSelect" />
+                            <label for="singleSelect3" class="select__label">Вариант 4</label>
+                            <input id="singleSelect4" class="select__input" type="radio" name="singleSelect" />
+                            <label for="singleSelect4" class="select__label">Вариант 5</label>
+                        </div>
                     </div>
                 </div>
-            </template>
-        </section>
-        <footer class="footer">
-            <p class="footer__text">&copy; Mesto Russia</p>
-        </footer>
-        <div class="popup popup__confirm">
-            <form class="popup__container">
-                <button type="button" class="popup__close"></button>
-                <h2 class="popup__text">Вы уверены?</h2>
-                <button id="delete" class="popup__btn" type="submit">Да</button>
-            </form>
-        </div>
-        <div class="popup popup__newAvatar">
-            <form class="popup__container">
-                <button type="button" class="popup__close"></button>
-                <h2 class="popup__text">Обновить аватар</h2>
-                <input id="newName" class="popup__input" type="url" placeholder="ссылка на аватар" name="avatar">
-                <button id="loadAvatar" class="popup__btn" type="submit">Сохранить</button>
-            </form>
-        </div>
-
-        <div class="popup profilePopup">
-            <form id='profileForm' name="edit-profile" action="#" class="popup__container">
-                <button type="button" class="popup__close"></button>
-                <h2 class="popup__text">Редактировать профиль</h2>
-
-                <input id="name" class="popup__input" type="text" required placeholder="Введите имя" name="userName"
-                    minlength="2" maxlength="40">
-                <span id="name-error" class="popup__error"></span>
-
-                <input id="job" class="popup__input" type="text" required placeholder="укажите работу" name="userJob"
-                    minlength="2" maxlength="200">
-                <span id="job-error" class="popup__error"></span>
-
-                <button id="loadInfo" class="popup__btn" type="submit">Сохранить</button>
-            </form>
-        </div>
-        <div id="new-card" class="popup addCardPopup">
-            <form id="form" name="edit-profile" action="#" class="popup__container">
-                <button type="button" id="close" class="popup__close"></button>
-                <h2 class="popup__text">Новое место</h2>
-
-                <input id="name-card" class="popup__input" type="text" required placeholder="Название" name="name"
-                    minlength="1" maxlength="30">
-                <span id="name-card-error" class="popup__error"></span>
-
-                <input id="link-card" class="popup__input" type="url" required placeholder="Ссылка на картинку"
-                    name="link">
-                <span id="link-card-error" class="popup__error"></span>
-
-                <button id="save" class="popup__btn" type="submit">Создать</button>
-            </form>
-        </div>
-        <div class="photo-popup popup">
-            <div class="photo-popup__container">
-                <button id="close-photo" class="popup__close"></button>
-                <img class="photo-popup__img" src="#" alt="">
-                <p class="photo-popup__text">имя фотки</p>
+                <div class="form__input-container">
+                    <p class="input-title">Способ погрузки</p>
+                    <div class="select" data-state="" id='method'>
+                        <div class="select__title" data-default="Option 0"><span class="span check">Задняя</span>
+                        </div>
+                        <div class="select__content">
+                            <input id="methodSelect0" class="select__input" type="radio" name="methodSelect" />
+                            <label for="methodSelect0" class="select__label">Вариант</label>
+                            <input id="methodSelect0" class="select__input" type="radio" name="methodSelect" />
+                            <label for="methodSelect0" class="select__label">Вариант 1</label>
+                            <input id="methodSelect1" class="select__input" type="radio" name="methodSelect" />
+                            <label for="methodSelect1" class="select__label">Вариант 2</label>
+                            <input id="methodSelect2" class="select__input" type="radio" name="methodSelect" />
+                            <label for="methodSelect2" class="select__label">Вариант 3</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            </button>
+        </fieldset>
+        <fieldset>
+            <div class="form__step-container">
+                <img src='./images/step3.svg' alt="step-icon">
+                <p>Груз</p>
+            </div>
+            <div class="form__input-container form__input-container_type_cargo">
+                <p class="input-title">Тип груза</p>
+                <div class="select" data-state="" id='cargo'>
+                    <div class="select__title" data-default="Option 0"><span class="span">Не выбран</span>
+                    </div>
+                    <div class="select__content">
+                        <input id="cargoSelect0" class="select__input" type="radio" name="cargoSelect" />
+                        <label for="cargoSelect0" class="select__label">Вариант</label>
+                        <input id="cargoSelect0" class="select__input" type="radio" name="cargoSelect" />
+                        <label for="cargoSelect0" class="select__label">Вариант 1</label>
+                        <input id="cargoSelect1" class="select__input" type="radio" name="cargoSelect" />
+                        <label for="cargoSelect1" class="select__label">Вариант 2</label>
+                        <input id="cargoSelect2" class="select__input" type="radio" name="cargoSelect" />
+                        <label for="cargoSelect2" class="select__label">Вариант 3</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form__input-section">
+                <div class="form__input-container">
+                    <p class="input-title">Класс опасности</p>
+                    <div class="select" data-state="" id='danger'>
+                        <div class="select__title" data-default="Option 0"><span class="span check">Класс 5 —
+                                Окисляющие вещества и органические перекиси</span>
+                        </div>
+                        <div class="select__content">
+                            <input id="dangerSelect0" class="select__input" type="radio" name="dangerSelect" />
+                            <label for="dangerSelect0" class="select__label">Вариант</label>
+                            <input id="dangerSelect0" class="select__input" type="radio" name="dangerSelect" />
+                            <label for="dangerSelect0" class="select__label">Вариант 1</label>
+                            <input id="dangerSelect1" class="select__input" type="radio" name="dangerSelect" />
+                            <label for="dangerSelect1" class="select__label">Вариант 2</label>
+                            <input id="dangerSelect2" class="select__input" type="radio" name="dangerSelect" />
+                            <label for="dangerSelect2" class="select__label">Вариант 3</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form__input-container">
+                    <label for="prices" class="input-title">Объявленная ценность, ₽</label>
+                    <input type="text" class="form__input select" id="prices" placeholder="&ge;">
+                </div>
+            </div>
+            <input id="check" type="checkbox" class="form__invisible-checkbox"> <!-- этот элемент мы скрыли -->
+            <label for="check">
+                <p>Требуется температурный режим</p>
+            </label>
+            <div class="form__input-section invisible" id="temperature">
+                <div class="form__input-container">
+                    <label for="min-deg" class="input-title">От, &deg;C</label>
+                    <input type="text" class="form__input select" id="min-deg">
+                </div>
+                <div class="form__input-container">
+                    <label for="max-deg" class="input-title">До, &deg;C</label>
+                    <input type="text" class="form__input select" id="max-deg">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <div class="form__step-container">
+                <img src='./images/step4.svg' alt="step-icon">
+                <p>Время</p>
+            </div>
+            <div class="form__text-container">
+                <label for="adres" class="input-title">Когда прибыть на точку</label>
+                <p>700 км в день</p>
+            </div>
+            <span class="form__span">
+                <input type="text" class="form__input form__input_type_adres" id="adres" placeholder="Адрес не указан"
+                    autocomplete="new-value">
+            </span>
+            <span class="form__span form__span_white">
+                <input type="text" class="form__input form__input_type_adres" placeholder="Адрес не указан"
+                    autocomplete="new">
+            </span>
+            <label for="text-area" class="input-title">Комментарий к заказу</label>
+            <textarea id="text-area"
+                placeholder="Укажите особенности въезда на территорию склада или подъезда к адресу"></textarea>
+        </fieldset>
+        <div class="form__message">
+            <p>Для расчета стоимости необходимо ввести параметры груза, пункты отправки и прибытия.</p>
         </div>
+    </form>
     </div>
 </body>
 

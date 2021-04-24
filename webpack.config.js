@@ -18,11 +18,16 @@ module.exports = {
                 test: /\.html$/i,
                 loader: 'html-loader',
             }, {
-                test: /\.css$/i,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    { loader: 'css-loader', options: { importLoaders: 1 } },
-                    'postcss-loader'],
+                test: /\.(s*)css$/,
+                use: [MiniCssExtractPlugin.loader, {
+                    loader: 'css-loader',
+                    options: {
+                        importLoaders: 1
+                    }
+                },
+                    'sass-loader',
+                    'postcss-loader',
+                ]
             }, {
                 test: /\.(png|svg|jpg|gif)$/,
                 loader: 'file-loader?name=./images/[name].[ext]' // сюда складывать изображения
